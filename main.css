@@ -1,0 +1,7 @@
+body {
+    min-width: 800px;
+}
+
+.modal-dialog {
+    max-width: 80%;
+}

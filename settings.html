@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body class="pb-2 pt-2">
+    <section class="container-fluid" id="containerError" style="display: none;">
+        <div class="alert alert-danger" role="alert">
+        </div>
+    </section>
+    <section class="container-fluid" id="containerStep1">
+        <div class="row">
+            <div class="col">
+                <div class="mb-3">
+                    <label for="dataInput" class="form-label">Wklej excela - maksymalnie 100 rekordów</label>
+                    <textarea class="form-control" id="dataInput" rows="10"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-primary" id="buttonStep1">Konwertuj</button>
+            </div>
+            <div class="col text-end">
+                <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#helpModal">
+                    Pomoc
+                </button>
+            </div>
+        </div>
+    </section>
+    <select class="form-select" name="settings[__replace__]" style="display: none;" id="headerSelectExample">
+        <option></option>
+        <option value="namesurname">Imię i nazwisko</option>
+        <option value="surnamename">Nazwisko i imię</option>
+        <option value="date">Data</option>
+        <option value="operator">Osoba wykonująca</option>
+        <option value="assist">Dane asystentów</option>
+        <option value="group">Procedura z grupy</option>
+    </select>
+    <section class="container-fluid" id="containerStep2" style="display: none">
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-primary" id="buttonStep2">Importuj</button>
+            </div>
+            <div class="col">Ilość rekordów: <span id="recordCount"></span></div>
+            <div class="col text-end">
+                <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#helpModal">
+                    Pomoc
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <table id="dataTable" class="table">
+                    <thead>
+                        <tr>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Import danych</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Przygotowanie danych</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Szczegóły działania</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <ol>
+                                <li>Zaloguj się na swoje konto SMK i przejdź do Indeksu wykonanych zabiegów i procedur medycznych.</li>
+                                <li>Rozwiń tabelę do której chcesz importować dane. Pozostałe powinny zostać schowane.</li>
+                                <li>Przygotuj pierwszy wiersz - dane, które mają zostać skopiowane np. Rok, Kod zabiegu, Miejsce wykonania.</li>
+                                <li>W Excelu - zaznacz komórki z których chcesz zaimportować dane, maksymalnie 100 rekordów.</li>
+                                <li>Wklej komórki w pole tekstowe i kliknij "Konwertuj".</li>
+                                <li>Ustaw w których kolumnach znajdują się jakie dane. Wymagane są "Imię i nazwisko" oraz "Data".</li>
+                                <li>Kliknij "Importuj" - poczekaj aż dodadzą się nowe rekordy i zostaną wypełnione.</li>
+                            </ol>
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <p>
+                                Przygotuj plik Excel(lub LibreOffice/OpenOffice). W arkuszu muszą znajdować się min. 2 kolumny: <strong>Imię i nazwisko</strong> oraz <strong>Data</strong>.<br/>
+                                Data powinna być w formacie YYYY-MM-DD czyli ROK-MIESIĄC-DZIEŃ, np. 2022-01-03.
+                            </p>
+                            <p>
+                                Aktualnie istnieje możliwość importu następujących kolumn: Imię i nazwisko, Data, Osoba wykonująca, Dane asystentów, Procedura z grupy.
+                            </p>
+                        </div>
+                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                            <p>Import "klika" odpowiednią ilość razy przycisk "Dodaj kopię" a następnie uzupełnia dane.
+                                W związku z tym, tak jak przy manualnym kliknięciu "Dodaj kopię" zostaną skopiowane z poprzedniego wiersza wszystkie dane oprócz daty oraz inicjałów i płci pacjenta.
+                                Jeżeli pozostałe kolumny mają się różnić - np. osoba wykonująca należy przygotować plik Excel z taką kolumną.
+                            </p>
+                            <p>Inicjały pacjenta - tworzone są na podstawie przesłanego Imienia i nazwiska.</p>
+                            <p>Płeć pacjenta - rozpoznawana jest na podstawie imienia.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="jquery-3.6.0.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
